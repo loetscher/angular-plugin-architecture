@@ -40,14 +40,30 @@ function __metadata(metadataKey, metadataValue) {
 }
 
 var PluginAComponent = /** @class */ (function () {
-    function PluginAComponent() {
+    function PluginAComponent(el) {
+        this.el = el;
+        this.cancelWfl = new core.EventEmitter();
     }
+    PluginAComponent.prototype.activityConfObject = function () {
+        return this.activityConf;
+    };
+    PluginAComponent.prototype.cancelWorkflow = function () {
+        this.cancelWfl.emit("cancel workflow (EventEmmitter)");
+    };
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Object)
+    ], PluginAComponent.prototype, "activityConf", void 0);
+    __decorate([
+        core.Output(),
+        __metadata("design:type", Object)
+    ], PluginAComponent.prototype, "cancelWfl", void 0);
     PluginAComponent = __decorate([
         core.Component({
             selector: 'plugin-a-component',
-            template: "<form #myForm=\"ngForm\">\n    <div class=\"form-group\">\n      <label for=\"name\">Name</label>\n      <input type=\"text\" class=\"form-control\" id=\"name\" required>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"alterEgo\">Alter Ego</label>\n      <input type=\"text\" class=\"form-control\" id=\"alterEgo\">\n    </div>\n\n    <button type=\"submit\" class=\"btn btn-success\">Submit</button>\n\n</form>"
+            template: "<form #myForm=\"ngForm\">\n    <div class=\"form-group\">\n      <label for=\"name\">Name</label>\n      <input type=\"text\" class=\"form-control\" id=\"name\" required>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"alterEgo\">Alter Ego</label>\n      <input type=\"text\" class=\"form-control\" id=\"alterEgo\">\n    </div>\n\n    <button type=\"submit\" class=\"btn btn-success\">Submit</button>\n    <div>Activity Configuration: {{activityConfObject() | json }}</div>\n    <button (click)=\"cancelWorkflow()\">Cancel Workflow</button>\n</form>\n"
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [core.ElementRef])
     ], PluginAComponent);
     return PluginAComponent;
 }());

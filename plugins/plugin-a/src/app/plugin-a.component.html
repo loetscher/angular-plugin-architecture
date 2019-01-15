@@ -10,5 +10,6 @@
     </div>
 
     <button type="submit" class="btn btn-success">Submit</button>
-
+    <div>Activity Configuration: {{activityConfObject() | json }}</div>
+    <button (click)="cancelWorkflow()">Cancel Workflow</button>
 </form>
