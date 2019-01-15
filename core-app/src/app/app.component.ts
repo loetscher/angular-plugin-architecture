@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Compiler, Injector, ViewChild, 
-         ViewContainerRef } from '@angular/core';
+         ViewContainerRef, EventEmitter } from '@angular/core';
 
 declare const SystemJS: any;
 
@@ -42,6 +42,15 @@ export class AppComponent implements AfterViewInit {
     //sending @Input() values 
     //pluginComponent.instance.anyInput = "inputValue"; 
     
+    //sending @Input() values
+    pluginComponent.instance.activityConf = {workflow: 'id', data: {id: '1234', payload: 'dummy'}};
+
+    //register callback
+    const callback = pluginComponent.instance.cancelWfl as EventEmitter<any>;
+    callback.subscribe(() => {
+        console.log(`cancel workflow`);
+    });
+
     //accessing the component template view
     //(pluginComponent.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
   }
